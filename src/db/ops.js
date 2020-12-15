@@ -21,7 +21,7 @@ export const insertRows = ({ db, table, records, columnNames }) => {
   });
 };
 
-export const selectAll = ({ db, table, debug }) => {
+export const selectAll = ({ db, table }) => {
   return new Promise((resolve, reject) => {
     const query = `SELECT * FROM ${table}`;
     const results = [];
@@ -34,10 +34,56 @@ export const selectAll = ({ db, table, debug }) => {
       (error, rowCount) => {
         if (error) handleError({ reject, error });
         console.log(`Selected ${rowCount} rows from ${table}`);
-        if (debug) console.log(results);
         resolve(results);
       }
     );
+  });
+};
+
+export const selectById = ({ db, table, id }) => {
+  return new Promise((resolve, reject) => {
+    const query = `SELECT * FROM ${table} WHERE id=${id}`;
+    db.get(query, (error, row) => {
+      if (error) handleError({ reject, error });
+      console.log(`Selected entry #${id} from ${table}`);
+      resolve(row);
+    });
+  });
+};
+
+export const selectOrderedByField = ({ db, table, count, offset }) => {
+  return new Promise((resolve, reject) => {
+    const query = [
+      `SELECT * FROM ${table}`,
+      count && `LIMIT ${count}`,
+      offset && `OFFSET ${offset}`,
+    ]
+      .filter(Boolean)
+      .join(" ");
+    const results = [];
+    db.each(
+      query,
+      (error, row) => {
+        if (error) handleError({ reject, error });
+        results.push(row);
+      },
+      (error, rowCount) => {
+        if (error) handleError({ reject, error });
+        console.log(`Selected ${rowCount} rows from ${table}`);
+        resolve(results);
+      }
+    );
+  });
+};
+
+export const selectCount = ({ db, table }) => {
+  return new Promise((resolve, reject) => {
+    const query = `SELECT COUNT(*) FROM ${table}`;
+    db.get(query, (error, row) => {
+      if (error) handleError({ reject, error });
+      console.log(`Counted entries in ${table}`);
+      resolve(row);
+    });
   });
 };
 

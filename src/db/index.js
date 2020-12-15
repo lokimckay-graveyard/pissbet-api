@@ -4,27 +4,23 @@ import { createTables, insertRows } from "./ops";
 import { fileExists } from "../lib/fs";
 const sqlite3 = x.verbose();
 
-const init = (db) => {
-  createTables({ db });
-};
-
-const create = ({ devMode }) => {
-  const dbPath = "pissmas-api.db";
+const init = ({ devMode, dbPath: _dbPath }) => {
+  const dbPath = devMode ? "pissmas-api.db" : _dbPath;
   const dbPermissions = devMode
     ? sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE
-    : sqlite3.OPEN_READONLY | sqlite3.OPEN_CREATE;
+    : sqlite3.OPEN_READONLY;
 
   const dbInstance = new sqlite3.Database(dbPath, dbPermissions, (err) => {
     if (err) {
-      console.error(err.message);
-      return;
+      console.error(err);
+      process.exit();
     }
     console.log(`Connected to ${dbPath} database`);
   });
 
   if (devMode) {
     dbInstance.serialize(() => {
-      init(dbInstance);
+      createTables({ db: dbInstance });
       if (!fileExists(dbPath)) mockPopulate(dbInstance);
     });
   }
@@ -74,4 +70,4 @@ const mockPopulate = (db) => {
   });
 };
 
-export default create;
+export default init;
