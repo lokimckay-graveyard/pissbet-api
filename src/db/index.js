@@ -1,6 +1,7 @@
 import x from "sqlite3";
 import { mockBets, mockMatches, mockParticipants, mockPlayers } from "./mock";
 import { createTables, insertRows } from "./ops";
+import { fileExists } from "../lib/fs";
 const sqlite3 = x.verbose();
 
 const init = (db) => {
@@ -24,9 +25,10 @@ const create = ({ devMode }) => {
   if (devMode) {
     dbInstance.serialize(() => {
       init(dbInstance);
-      mockPopulate(dbInstance);
+      if (!fileExists(dbPath)) mockPopulate(dbInstance);
     });
   }
+
   return dbInstance;
 };
 
