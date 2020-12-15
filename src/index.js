@@ -5,12 +5,10 @@ import db from "./db";
 
 // CLI args
 const argv = process.argv.slice(2);
-const {
-  port = 4000,
-  path: dbPath = "pissmas.db",
-  d: devMode = false,
-  p: playground = false,
-} = mri(argv);
+const { port = 4000, path, d: devMode = false, p: playground = false } = mri(
+  argv
+);
+const dbPath = path || (devMode ? "pissmas-api.db" : "pissmas.db");
 greet({ port, dbPath, playground, devMode });
 
 // Runtime

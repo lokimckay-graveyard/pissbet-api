@@ -4,8 +4,7 @@ import { createTables, insertRows } from "./ops";
 import { fileExists } from "../lib/fs";
 const sqlite3 = x.verbose();
 
-const init = ({ devMode, dbPath: _dbPath }) => {
-  const dbPath = devMode ? "pissmas-api.db" : _dbPath;
+const init = ({ devMode, dbPath }) => {
   const dbPermissions = devMode
     ? sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE
     : sqlite3.OPEN_READONLY;
