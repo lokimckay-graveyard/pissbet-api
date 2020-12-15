@@ -27,4 +27,11 @@ npm run start -- <options>
 -p (playground)     Enable/disable the GraphiQL playground
 --port              Specify which port the GraphQL API will run on (default 4000)
 --path              Specify the URL path where the GraphQL API is accessible (default /graphQL)
+
+```
+
+Example
+
+```
+npm run start -dp --port=1234 path="./db/example.db"
 ```
