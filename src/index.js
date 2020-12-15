@@ -12,4 +12,4 @@ greet({ port, dbPath, devMode });
 
 // Runtime
 const dbInstance = db({ devMode, dbPath });
-server({ port, dbInstance });
+server({ port, dbInstance, devMode });
