@@ -23,8 +23,8 @@ By default it is at [`localhost:4000`](http://localhost:4000)
 ```
 npm run start -- <options>
 
--d              Developer mode - populates the SQLite3 db with mockdata if enabled
--p              Enable/disable the GraphiQL playground
---port          Specify which port the GraphQL API will run on (default 4000)
---path          Specify the URL path where the GraphQL API is accessible (default /graphQL)
+-d (devMode)        Developer mode - populates the SQLite3 db with mockdata if enabled
+-p (playground)     Enable/disable the GraphiQL playground
+--port              Specify which port the GraphQL API will run on (default 4000)
+--path              Specify the URL path where the GraphQL API is accessible (default /graphQL)
 ```

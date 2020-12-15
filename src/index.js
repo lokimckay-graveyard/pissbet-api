@@ -9,7 +9,7 @@ const { port = 4000, path, d: devMode = false, p: playground = false } = mri(
   argv
 );
 const dbPath = path || (devMode ? "pissmas-api.db" : "pissmas.db");
-greet({ port, dbPath, playground, devMode });
+greet({ port, path: dbPath, playground, devMode });
 
 // Runtime
 const dbInstance = db({ devMode, dbPath });
