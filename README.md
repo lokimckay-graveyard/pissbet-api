@@ -33,5 +33,5 @@ npm run start -- <options>
 Example
 
 ```
-npm run start -dp --port=1234 path="./db/example.db"
+npm run start -dp --port=1234 path="/myGraphQLEndpoint"
 ```
