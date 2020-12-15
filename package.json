@@ -10,7 +10,7 @@
     "url": "git+https://github.com/sneyed/pissbet-api.git"
   },
   "scripts": {
-    "start": "node -r esm src/index.js",
+    "start": "node -r esm src/index.js -p",
     "dev": "npm run start -- -d"
   },
   "dependencies": {
