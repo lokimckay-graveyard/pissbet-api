@@ -8,13 +8,14 @@ const argv = process.argv.slice(2);
 const {
   domain = "localhost",
   port = 4000,
-  path = "/graphql",
+  path = "pissmas.db",
+  url = "/graphql",
   d: devMode = false,
   p: playground = false,
 } = mri(argv);
-greet({ domain, port, path, playground, devMode });
+greet({ domain, port, url, path, playground, devMode });
 
 // Runtime
-const dbPath = devMode ? "pissmas-api.db" : "pissmas.db";
+const dbPath = devMode ? "pissmas-api.db" : path;
 const dbInstance = db({ devMode, dbPath });
-server({ domain, port, path, dbInstance, playground });
+server({ domain, port, url, dbInstance, playground });
