@@ -3,7 +3,7 @@ import { graphqlHTTP } from "express-graphql";
 import schema from "./schema";
 import getRootResolver from "./resolvers";
 
-const init = ({ port, path, playground, dbInstance }) => {
+const init = ({ domain, port, path, playground, dbInstance }) => {
   const app = express();
   app.use(
     path,
@@ -13,9 +13,9 @@ const init = ({ port, path, playground, dbInstance }) => {
       graphiql: playground,
     })
   );
-  app.listen(port);
+  app.listen(port, domain);
   console.log(
-    `Running a GraphQL API server at http://localhost:${port}/graphql`
+    `Running a GraphQL API server at http://${domain}:${port}${path}`
   );
 };
 

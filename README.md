@@ -25,6 +25,7 @@ npm run start -- <options>
 
 -d (devMode)        Developer mode - populates the SQLite3 db with mockdata if enabled
 -p (playground)     Enable/disable the GraphiQL playground
+--domain            Specify the IP address or domain for the Express server to listen at (default localhost)
 --port              Specify which port the GraphQL API will run on (default 4000)
 --path              Specify the URL path where the GraphQL API is accessible (default /graphQL)
 
@@ -33,5 +34,5 @@ npm run start -- <options>
 Example
 
 ```
-npm run start -dp --port=1234 path="/myGraphQLEndpoint"
+npm run start -dp --domain=192.168.0.1 --port=1234 path="/myGraphQLEndpoint"
 ```
