@@ -1,7 +1,20 @@
 import { getRandomAmount } from "../lib/random";
 
-const playerTags = ["Loki", "Ari", "Shitashi", "Verse", "Omta", "Mabi"];
-const participantUsernames = ["Weeb", "Joz"];
+const playerTags = ["Weeb", "Joz", "JANGLIO", "SiqNiq"];
+const participantUsernames = [
+  "Loki",
+  "ARI",
+  "Shitashi",
+  "Verse",
+  "Omta",
+  "Mabi",
+  "miliscara",
+  "Aidento",
+  "Python",
+  "squidfist",
+  "Murke",
+  "Churropon",
+];
 const matches = [
   // player_1_id, player_2_id, betting_open, winning_player_id
   [0, 1, null, null],

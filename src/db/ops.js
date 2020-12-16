@@ -1,3 +1,5 @@
+import Logger from "../lib/logger";
+
 const handleError = ({ reject, error }) => {
   console.error(error);
   reject(error);
@@ -33,7 +35,7 @@ export const selectAll = ({ db, table }) => {
       },
       (error, rowCount) => {
         if (error) handleError({ reject, error });
-        console.log(`Selected ${rowCount} rows from ${table}`);
+        Logger.log(`Selected ${rowCount} rows from ${table}`);
         resolve(results);
       }
     );
@@ -45,16 +47,24 @@ export const selectById = ({ db, table, id }) => {
     const query = `SELECT * FROM ${table} WHERE id=${id}`;
     db.get(query, (error, row) => {
       if (error) handleError({ reject, error });
-      console.log(`Selected entry #${id} from ${table}`);
+      Logger.log(`Selected entry #${id} from ${table}`);
       resolve(row);
     });
   });
 };
 
-export const selectOrderedByField = ({ db, table, count, offset }) => {
+export const selectOrderedByField = ({
+  db,
+  table,
+  count,
+  offset,
+  orderBy,
+  direction,
+}) => {
   return new Promise((resolve, reject) => {
     const query = [
       `SELECT * FROM ${table}`,
+      orderBy && `ORDER BY ${orderBy}${direction ? ` ${direction}` : ""}`,
       count && `LIMIT ${count}`,
       offset && `OFFSET ${offset}`,
     ]
@@ -69,7 +79,7 @@ export const selectOrderedByField = ({ db, table, count, offset }) => {
       },
       (error, rowCount) => {
         if (error) handleError({ reject, error });
-        console.log(`Selected ${rowCount} rows from ${table}`);
+        Logger.log(`Selected ${rowCount} rows from ${table}`);
         resolve(results);
       }
     );
@@ -81,7 +91,7 @@ export const selectCount = ({ db, table }) => {
     const query = `SELECT COUNT(*) FROM ${table}`;
     db.get(query, (error, row) => {
       if (error) handleError({ reject, error });
-      console.log(`Counted entries in ${table}`);
+      Logger.log(`Counted entries in ${table}`);
       resolve(row);
     });
   });

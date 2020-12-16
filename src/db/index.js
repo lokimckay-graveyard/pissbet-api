@@ -1,10 +1,11 @@
 import x from "sqlite3";
 import { mockBets, mockMatches, mockParticipants, mockPlayers } from "./mock";
-import { createTables, insertRows } from "./ops";
+import { createTables, insertRows, selectAll } from "./ops";
 import { fileExists } from "../lib/fs";
 const sqlite3 = x.verbose();
 
 const init = ({ devMode, dbPath }) => {
+  const freshDb = !fileExists(dbPath);
   const dbPermissions = devMode
     ? sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE
     : sqlite3.OPEN_READONLY;
@@ -20,7 +21,7 @@ const init = ({ devMode, dbPath }) => {
   if (devMode) {
     dbInstance.serialize(() => {
       createTables({ db: dbInstance });
-      if (!fileExists(dbPath)) mockPopulate(dbInstance);
+      if (freshDb) mockPopulate(dbInstance);
     });
   }
 

@@ -8,6 +8,8 @@ const getRootResolver = ({ db }) => {
         table: "participants",
         count,
         offset,
+        orderBy: "balance",
+        direction: "DESC",
       });
       return results;
     },
