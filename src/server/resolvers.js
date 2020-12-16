@@ -1,4 +1,9 @@
-import { selectById, selectCount, selectOrderedByField } from "../db/ops";
+import {
+  selectAll,
+  selectById,
+  selectCount,
+  selectOrderedByField,
+} from "../db/ops";
 
 const getRootResolver = ({ db }) => {
   return {
@@ -20,6 +25,14 @@ const getRootResolver = ({ db }) => {
     countParticipants: async () => {
       const total = await selectCount({ db, table: "participants" });
       return total["COUNT(*)"];
+    },
+    allBets: async () => {
+      const results = selectAll({ db, table: "bets" });
+      return results;
+    },
+    allMatches: async () => {
+      const results = selectAll({ db, table: "matches" });
+      return results;
     },
   };
 };

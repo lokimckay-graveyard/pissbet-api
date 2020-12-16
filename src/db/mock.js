@@ -19,12 +19,26 @@ const matches = [
   // player_1_id, player_2_id, betting_open, winning_player_id
   [0, 1, null, null],
   [2, 3, 1, null],
-  [4, 5, null, 5],
+  [1, 2, null, 1],
+  [1, 2, null, 1],
+  [1, 2, null, 1],
+  [1, 2, null, 1],
+  [1, 2, null, 1],
+  [1, 2, null, 1],
 ];
 const bets = [
   //participant_id, match_id, player_number, volume
-  [0, 0, 1, getRandomAmount(100)],
-  [1, 1, 1, getRandomAmount(100)],
+  [0, 2, 1, getRandomAmount(100)],
+  [1, 2, 2, getRandomAmount(100)],
+  [2, 2, 1, getRandomAmount(100)],
+  [3, 2, 1, getRandomAmount(100)],
+  [4, 2, 2, getRandomAmount(100)],
+  [5, 2, 2, getRandomAmount(100)],
+  [1, 3, 2, 50],
+  [1, 4, 1, 100],
+  [0, 5, 2, 50],
+  [0, 6, 1, 50],
+  [0, 7, 2, 75],
 ];
 
 export const mockPlayers = playerTags.map((tag, index) => [index, tag]);

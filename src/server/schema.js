@@ -5,6 +5,8 @@ const schema = buildSchema(`
         participants(count: Int! offset: Int): [Participant]!
         participant(id: ID!): Participant
         countParticipants: Int!
+        allBets: [Bet]!
+        allMatches: [Match]!
     }
 
     type Participant {
@@ -13,6 +15,21 @@ const schema = buildSchema(`
         balance: Int
     }
 
+    type Bet {
+        id: ID!
+        participant_id: ID!
+        match_id: ID!
+        player_number: Int!
+        volume: Int!
+    }
+
+    type Match {
+        id: ID!
+        player_1_id: ID!
+        player_2_id: ID!
+        betting_open: Boolean
+        winning_player_id: ID
+    }
 `);
 
 export default schema;
