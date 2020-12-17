@@ -35,7 +35,7 @@ export const selectAll = ({ db, table }) => {
       },
       (error, rowCount) => {
         if (error) handleError({ reject, error });
-        Logger.log(`Selected ${rowCount} rows from ${table}`);
+        Logger.log(`[DB] Selected ${rowCount} rows from ${table}`);
         resolve(results);
       }
     );
@@ -47,7 +47,7 @@ export const selectById = ({ db, table, id }) => {
     const query = `SELECT * FROM ${table} WHERE id=${id}`;
     db.get(query, (error, row) => {
       if (error) handleError({ reject, error });
-      Logger.log(`Selected entry #${id} from ${table}`);
+      Logger.log(`[DB] Selected entry #${id} from ${table}`);
       resolve(row);
     });
   });
@@ -79,7 +79,7 @@ export const selectOrderedByField = ({
       },
       (error, rowCount) => {
         if (error) handleError({ reject, error });
-        Logger.log(`Selected ${rowCount} rows from ${table}`);
+        Logger.log(`[DB] Selected ${rowCount} rows from ${table}`);
         resolve(results);
       }
     );
@@ -91,7 +91,7 @@ export const selectCount = ({ db, table }) => {
     const query = `SELECT COUNT(*) FROM ${table}`;
     db.get(query, (error, row) => {
       if (error) handleError({ reject, error });
-      Logger.log(`Counted entries in ${table}`);
+      Logger.log(`[DB] Counted entries in ${table}`);
       resolve(row);
     });
   });
@@ -144,4 +144,6 @@ export const createTables = ({ db }) => {
                 FOREIGN KEY (match_id) REFERENCES matches (id)
             )
         `);
+
+  Logger.log("[DB] Created tables");
 };
