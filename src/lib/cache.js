@@ -8,7 +8,7 @@ export const checkCache = (key) => {
 };
 
 export const cacheResult = (key, result) => {
-  cache.put(key, result, 10000, (key) => {
+  cache.put(key, result, 3000, (key) => {
     Logger.log(`[CACHE] Cached result for ${key}`);
   });
 };
