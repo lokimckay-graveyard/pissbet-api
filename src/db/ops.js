@@ -138,6 +138,7 @@ export const createTables = ({ db }) => {
                 match_id INT NOT NULL,
                 player_number INT NOT NULL CHECK (player_number IN (1, 2)),
                 volume INT NOT NULL CHECK (volume > 0),
+                payout INT NULL CHECK (payout > 0),
 
                 UNIQUE (participant_id, match_id),
                 FOREIGN KEY (participant_id) REFERENCES participants (id),
