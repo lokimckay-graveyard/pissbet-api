@@ -53,6 +53,17 @@ export const selectById = ({ db, table, id }) => {
   });
 };
 
+export const selectByField = ({ db, table, field, value }) => {
+  return new Promise((resolve, reject) => {
+    const query = `SELECT * FROM ${table} WHERE ${field}=${value}`;
+    db.get(query, (error, row) => {
+      if (error) handleError({ reject, error });
+      Logger.log(`[DB] Selected entry ${field}=${value} from ${table}`);
+      resolve(row);
+    });
+  });
+};
+
 export const selectOrderedByField = ({
   db,
   table,

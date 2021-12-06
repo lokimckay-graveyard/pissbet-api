@@ -5,8 +5,15 @@ const schema = buildSchema(`
         participants(count: Int! offset: Int): [Participant]!
         participant(id: ID!): Participant
         countParticipants: Int!
+        playerByTag(tag: String!): Player
+        allPlayers: [Player]!
         allBets: [Bet]!
         allMatches: [Match]!
+    }
+
+    type Player {
+        id: ID!
+        tag: String
     }
 
     type Participant {

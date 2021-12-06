@@ -1,6 +1,7 @@
 import {
   selectAll,
   selectById,
+  selectByField,
   selectCount,
   selectOrderedByField,
 } from "../db/ops";
@@ -28,7 +29,7 @@ const getRootResolver = ({ db }) => {
       if (cached) return cached;
 
       const result = await selectById({ db, table: "participants", id });
-      cacheResult("participant", result);
+      cacheResult(`participant-${id}`, result);
       return result;
     },
     countParticipants: async () => {
@@ -38,6 +39,27 @@ const getRootResolver = ({ db }) => {
       const total = await selectCount({ db, table: "participants" });
       cacheResult("countParticipants", total["COUNT(*)"]);
       return total["COUNT(*)"];
+    },
+    playerByTag: async ({ tag }) => {
+      const cached = checkCache("playerByTag");
+      if (cached) return cached;
+
+      const result = await selectByField({
+        db,
+        table: "players",
+        field: "tag",
+        value: tag,
+      });
+      cacheResult(`playerByTag-${tag}`, result);
+      return result;
+    },
+    allPlayers: async () => {
+      const cached = checkCache("allPlayers");
+      if (cached) return cached;
+
+      const results = await selectAll({ db, table: "players" });
+      cacheResult("allPlayers", results);
+      return results;
     },
     allBets: async () => {
       const cached = checkCache("allBets");
