@@ -29,12 +29,12 @@ const matches = [
 ];
 const bets = [
   //participant_id, match_id, player_number, volume
-  [0, 2, 1, getRandomAmount(100)],
-  [1, 2, 2, getRandomAmount(100)],
-  [2, 2, 1, getRandomAmount(100)],
-  [3, 2, 1, getRandomAmount(100)],
-  [4, 2, 2, getRandomAmount(100)],
-  [5, 2, 2, getRandomAmount(100)],
+  [0, 0, 1, getRandomAmount(100)],
+  [1, 0, 2, getRandomAmount(100)],
+  [2, 0, 1, getRandomAmount(100)],
+  [3, 0, 1, getRandomAmount(100)],
+  [4, 0, 2, getRandomAmount(100)],
+  [5, 0, 2, getRandomAmount(100)],
   [1, 3, 2, 50],
   [1, 4, 1, 100],
   [0, 5, 2, 50],
