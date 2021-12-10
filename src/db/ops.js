@@ -108,6 +108,23 @@ export const selectCount = ({ db, table }) => {
   });
 };
 
+export const selectCurrentOpenMatch = ({ db }) => {
+  return new Promise((resolve, reject) => {
+    const query = `SELECT  m.id,
+              (SELECT p1.tag FROM players p1 WHERE p1.id = m.player_1_id) player_1_tag,
+              (SELECT IFNULL(SUM(CASE b1.player_number WHEN 1 THEN b1.volume ELSE 0 END), 0) FROM bets b1 WHERE b1.match_id = m.id) player_1_bet_total,
+              (SELECT p2.tag FROM players p2 WHERE p2.id = m.player_2_id) player_2_tag,
+              (SELECT IFNULL(SUM(CASE b2.player_number WHEN 2 THEN b2.volume ELSE 0 END), 0) FROM bets b2 WHERE b2.match_id = m.id) player_2_bet_total
+      FROM matches m
+      WHERE m.betting_open = 1`;
+    db.get(query, (error, row) => {
+      if (error) handleError({ reject, error });
+      Logger.log(row ? "Found open match" : "No open match right now");
+      resolve(row);
+    });
+  });
+};
+
 export const createTables = ({ db }) => {
   // id === discord id
   db.run(`

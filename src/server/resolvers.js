@@ -4,6 +4,7 @@ import {
   selectByField,
   selectCount,
   selectOrderedByField,
+  selectCurrentOpenMatch,
 } from "../db/ops";
 import { checkCache, cacheResult } from "../lib/cache";
 
@@ -75,6 +76,14 @@ const getRootResolver = ({ db }) => {
 
       const results = await selectAll({ db, table: "matches" });
       cacheResult("allMatches", results);
+      return results;
+    },
+    currentOpenMatch: async () => {
+      const cached = checkCache("currentOpenMatch");
+      if (cached) return cached;
+
+      const results = await selectCurrentOpenMatch({ db });
+      cacheResult("currentOpenMatch", results);
       return results;
     },
   };

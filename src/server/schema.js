@@ -9,6 +9,7 @@ const schema = buildSchema(`
         allPlayers: [Player]!
         allBets: [Bet]!
         allMatches: [Match]!
+        currentOpenMatch: CurrentOpenMatch
     }
 
     type Player {
@@ -36,6 +37,14 @@ const schema = buildSchema(`
         player_2_id: ID!
         betting_open: Boolean
         winning_player_id: ID
+    }
+
+    type CurrentOpenMatch {
+        id: ID
+        player_1_tag: String
+        player_1_bet_total: Int
+        player_2_tag: String
+        player_2_bet_total: Int
     }
 `);
 
