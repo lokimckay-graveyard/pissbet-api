@@ -116,7 +116,7 @@ export const selectCurrentOpenMatch = ({ db }) => {
               (SELECT p2.tag FROM players p2 WHERE p2.id = m.player_2_id) player_2_tag,
               (SELECT IFNULL(SUM(CASE b2.player_number WHEN 2 THEN b2.volume ELSE 0 END), 0) FROM bets b2 WHERE b2.match_id = m.id) player_2_bet_total
       FROM matches m
-      WHERE m.betting_open = 1`;
+      WHERE m.winning_player_id IS NULL`;
     db.get(query, (error, row) => {
       if (error) handleError({ reject, error });
       Logger.log(row ? "Found open match" : "No open match right now");
